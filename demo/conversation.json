@@ -1,0 +1,53 @@
+{
+  "session_id": "demo1",
+  "messages": [
+    {
+      "id": 1,
+      "speaker": "user",
+      "text": "I can't believe this happened to me.",
+      "ts": "2025-11-21T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "speaker": "user",
+      "text": "I worked so hard on that project and they just rejected it.",
+      "ts": "2025-11-21T10:01:30Z"
+    },
+    {
+      "id": 3,
+      "speaker": "user",
+      "text": "Maybe I'm just not good enough for this.",
+      "ts": "2025-11-21T10:03:15Z"
+    },
+    {
+      "id": 4,
+      "speaker": "assistant",
+      "text": "I hear how disappointed you are. Tell me more about what happened.",
+      "ts": "2025-11-21T10:04:00Z"
+    },
+    {
+      "id": 5,
+      "speaker": "user",
+      "text": "I spent weeks on it. Every detail was perfect. But they said it wasn't what they wanted.",
+      "ts": "2025-11-21T10:05:45Z"
+    },
+    {
+      "id": 6,
+      "speaker": "user",
+      "text": "I'm so angry and sad at the same time. I don't know what to do.",
+      "ts": "2025-11-21T10:07:20Z"
+    },
+    {
+      "id": 7,
+      "speaker": "user",
+      "text": "Wait... actually, they gave me some really helpful feedback.",
+      "ts": "2025-11-21T10:10:00Z"
+    },
+    {
+      "id": 8,
+      "speaker": "user",
+      "text": "Maybe I can use this to make it even better. Yeah, I'm going to try again!",
+      "ts": "2025-11-21T10:12:30Z"
+    }
+  ]
+}

@@ -1,0 +1,313 @@
+{
+  "info": {
+    "name": "The Empathy Engine API",
+    "description": "Complete API collection for The Empathy Engine - Chat history, emotion summarization, and analysis",
+    "version": "2.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Chat Management",
+      "item": [
+        {
+          "name": "Create New Chat",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"jdoe\",\n  \"initialMessage\": \"I need help with my billing issue\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/chat",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "chat"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"chatId\": \"abc123\",\n  \"id\": \"abc123\",\n  \"userId\": \"jdoe\",\n  \"createdAt\": \"2025-11-22T12:00:00Z\",\n  \"message\": \"Chat created successfully\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get User Chat History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/user/{{userId}}/chats?limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user", "{{userId}}", "chats"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Number of chats per page (1-100)"
+                },
+                {
+                  "key": "cursor",
+                  "value": "",
+                  "description": "Pagination cursor (optional)",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"userId\": \"jdoe\",\n  \"chats\": [\n    {\n      \"chatId\": \"abc123\",\n      \"id\": \"abc123\",\n      \"title\": \"Billing issue\",\n      \"createdAt\": \"2025-11-20T09:00:00Z\",\n      \"lastUpdatedAt\": \"2025-11-20T11:00:00Z\",\n      \"snippet\": \"I've been charged twice...\",\n      \"dominant_emotion\": \"anger\",\n      \"messageCount\": 12\n    }\n  ],\n  \"nextCursor\": \"cursor_2\",\n  \"total\": 45\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Chat by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/chat/{{chatId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "chat", "{{chatId}}"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"metadata\": {\n    \"chatId\": \"abc123\",\n    \"id\": \"abc123\",\n    \"userId\": \"jdoe\",\n    \"title\": \"Billing issue\",\n    \"createdAt\": \"2025-11-20T09:00:00Z\",\n    \"lastUpdatedAt\": \"2025-11-20T11:00:00Z\",\n    \"snippet\": \"I've been charged twice...\",\n    \"dominant_emotion\": \"anger\",\n    \"messageCount\": 12\n  },\n  \"messages\": [],\n  \"emotionTimeline\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "Add Message to Chat",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"speaker\": \"user\",\n  \"text\": \"This is really frustrating me!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/chat/{{chatId}}/message",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "chat", "{{chatId}}", "message"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"status\": \"success\",\n  \"chatId\": \"abc123\",\n  \"messageId\": 5,\n  \"emotion\": \"anger\",\n  \"confidence\": \"high\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Chat Title",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Billing Issue - Resolved\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/chat/{{chatId}}/title",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "chat", "{{chatId}}", "title"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"status\": \"success\",\n  \"chatId\": \"abc123\",\n  \"title\": \"Billing Issue - Resolved\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Chat",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/chat/{{chatId}}?userId={{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "chat", "{{chatId}}"],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "{{userId}}",
+                  "description": "User ID for authorization"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"status\": \"deleted\",\n  \"chatId\": \"abc123\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Emotion Analysis",
+      "item": [
+        {
+          "name": "Summarize Chat Emotion",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"include_summary_text\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/chat/{{chatId}}/summarize-emotion",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "chat", "{{chatId}}", "summarize-emotion"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"chatId\": \"abc123\",\n  \"id\": \"abc123\",\n  \"dominant_emotion\": \"anger\",\n  \"scores\": {\n    \"joy\": 0.01,\n    \"sadness\": 0.21,\n    \"anger\": 0.62,\n    \"fear\": 0.03,\n    \"surprise\": 0.05,\n    \"stress\": 0.02,\n    \"tension\": 0.03,\n    \"disgust\": 0.01,\n    \"anticipation\": 0.01,\n    \"neutral\": 0.01\n  },\n  \"confidence\": 0.84,\n  \"summary_text\": \"The conversation is dominated by anger and frustration, with occasional sadness.\",\n  \"generatedAt\": \"2025-11-22T12:34:56Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Analyze Messages (Legacy)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"session_id\": \"demo-1\",\n  \"messages\": [\n    {\n      \"id\": 1,\n      \"speaker\": \"user\",\n      \"text\": \"I can't believe this happened!\",\n      \"ts\": \"2025-11-22T10:00:00Z\"\n    }\n  ],\n  \"smoothing_window\": 3\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/analyze",
+              "host": ["{{baseUrl}}"],
+              "path": ["analyze"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Legacy Endpoints",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": ["{{baseUrl}}"],
+              "path": [""]
+            }
+          }
+        },
+        {
+          "name": "Chat (Legacy)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"session_id\": \"demo-1\",\n  \"message\": \"I'm feeling overwhelmed\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat"]
+            }
+          }
+        },
+        {
+          "name": "Summary (Legacy)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"session_id\": \"demo-1\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/summary",
+              "host": ["{{baseUrl}}"],
+              "path": ["summary"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "userId",
+      "value": "jdoe",
+      "type": "string"
+    },
+    {
+      "key": "chatId",
+      "value": "abc123",
+      "type": "string"
+    }
+  ]
+}

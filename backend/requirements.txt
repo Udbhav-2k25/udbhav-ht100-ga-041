@@ -1,0 +1,13 @@
+# The Empathy Engine - Backend Dependencies
+# All using FREE tier services
+
+# FastAPI Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+
+# FREE AI Model Provider (Groq)
+groq==0.11.0
+
+# Utilities
+python-dotenv==1.0.0

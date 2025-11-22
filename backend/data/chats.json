@@ -1,0 +1,362 @@
+{
+  "chats": {
+    "43051989": {
+      "metadata": {
+        "chatId": "43051989",
+        "id": "43051989",
+        "userId": "testuser",
+        "title": "New Chat",
+        "createdAt": "2025-11-22T09:55:51.859131Z",
+        "lastUpdatedAt": "2025-11-22T09:55:51.859131Z",
+        "snippet": "New chat",
+        "dominant_emotion": "neutral",
+        "messageCount": 0
+      },
+      "messages": [],
+      "emotionTimeline": {
+        "joy": [],
+        "sadness": [],
+        "anger": [],
+        "fear": [],
+        "surprise": [],
+        "stress": [],
+        "tension": [],
+        "disgust": [],
+        "anticipation": [],
+        "neutral": []
+      }
+    },
+    "f75fd44a": {
+      "metadata": {
+        "chatId": "f75fd44a",
+        "id": "f75fd44a",
+        "userId": "testuser",
+        "title": "I am feeling really stressed...",
+        "createdAt": "2025-11-22T09:56:38.066295Z",
+        "lastUpdatedAt": "2025-11-22T09:56:40.887988Z",
+        "snippet": "I am feeling really stressed and anxious today!",
+        "dominant_emotion": "stress",
+        "messageCount": 1
+      },
+      "messages": [
+        {
+          "id": 1,
+          "speaker": "user",
+          "text": "I am feeling really stressed and anxious today!",
+          "ts": "2025-11-22T09:56:40.887988Z",
+          "probs": {
+            "joy": 0.0,
+            "sadness": 0.2,
+            "anger": 0.0,
+            "fear": 0.3,
+            "surprise": 0.0,
+            "stress": 0.4,
+            "tension": 0.1,
+            "disgust": 0.0,
+            "anticipation": 0.0,
+            "neutral": 0.0
+          },
+          "dominant": "stress",
+          "entropy": 0.55583362792012,
+          "confidence": "medium"
+        }
+      ],
+      "emotionTimeline": {
+        "joy": [
+          0.0
+        ],
+        "sadness": [
+          0.2
+        ],
+        "anger": [
+          0.0
+        ],
+        "fear": [
+          0.3
+        ],
+        "surprise": [
+          0.0
+        ],
+        "stress": [
+          0.4
+        ],
+        "tension": [
+          0.1
+        ],
+        "disgust": [
+          0.0
+        ],
+        "anticipation": [
+          0.0
+        ],
+        "neutral": [
+          0.0
+        ]
+      }
+    },
+    "a7f441e3": {
+      "metadata": {
+        "chatId": "a7f441e3",
+        "id": "a7f441e3",
+        "userId": "testuser",
+        "title": "I am feeling really stressed...",
+        "createdAt": "2025-11-22T09:57:20.666718Z",
+        "lastUpdatedAt": "2025-11-22T09:57:23.232918Z",
+        "snippet": "I am feeling really stressed and anxious today!",
+        "dominant_emotion": "stress",
+        "messageCount": 1
+      },
+      "messages": [
+        {
+          "id": 1,
+          "speaker": "user",
+          "text": "I am feeling really stressed and anxious today!",
+          "ts": "2025-11-22T09:57:23.232918Z",
+          "probs": {
+            "joy": 0.0,
+            "sadness": 0.2,
+            "anger": 0.0,
+            "fear": 0.3,
+            "surprise": 0.0,
+            "stress": 0.4,
+            "tension": 0.1,
+            "disgust": 0.0,
+            "anticipation": 0.0,
+            "neutral": 0.0
+          },
+          "dominant": "stress",
+          "entropy": 0.55583362792012,
+          "confidence": "medium"
+        }
+      ],
+      "emotionTimeline": {
+        "joy": [
+          0.0
+        ],
+        "sadness": [
+          0.2
+        ],
+        "anger": [
+          0.0
+        ],
+        "fear": [
+          0.3
+        ],
+        "surprise": [
+          0.0
+        ],
+        "stress": [
+          0.4
+        ],
+        "tension": [
+          0.1
+        ],
+        "disgust": [
+          0.0
+        ],
+        "anticipation": [
+          0.0
+        ],
+        "neutral": [
+          0.0
+        ]
+      }
+    },
+    "714de3d0": {
+      "metadata": {
+        "chatId": "714de3d0",
+        "id": "714de3d0",
+        "userId": "testuser",
+        "title": "I am feeling really stressed...",
+        "createdAt": "2025-11-22T09:57:53.098604Z",
+        "lastUpdatedAt": "2025-11-22T09:57:55.738249Z",
+        "snippet": "I am feeling really stressed and anxious today!",
+        "dominant_emotion": "fear",
+        "messageCount": 1
+      },
+      "messages": [
+        {
+          "id": 1,
+          "speaker": "user",
+          "text": "I am feeling really stressed and anxious today!",
+          "ts": "2025-11-22T09:57:55.738249Z",
+          "probs": {
+            "joy": 0.0,
+            "sadness": 0.19999999999999996,
+            "anger": 0.0,
+            "fear": 0.3999999999999999,
+            "surprise": 0.0,
+            "stress": 0.29999999999999993,
+            "tension": 0.09999999999999998,
+            "disgust": 0.0,
+            "anticipation": 0.0,
+            "neutral": 0.0
+          },
+          "dominant": "fear",
+          "entropy": 0.55583362792012,
+          "confidence": "medium"
+        }
+      ],
+      "emotionTimeline": {
+        "joy": [
+          0.0
+        ],
+        "sadness": [
+          0.19999999999999996
+        ],
+        "anger": [
+          0.0
+        ],
+        "fear": [
+          0.3999999999999999
+        ],
+        "surprise": [
+          0.0
+        ],
+        "stress": [
+          0.29999999999999993
+        ],
+        "tension": [
+          0.09999999999999998
+        ],
+        "disgust": [
+          0.0
+        ],
+        "anticipation": [
+          0.0
+        ],
+        "neutral": [
+          0.0
+        ]
+      }
+    },
+    "43a63181": {
+      "metadata": {
+        "chatId": "43a63181",
+        "id": "43a63181",
+        "userId": "test-user",
+        "title": "New Chat",
+        "createdAt": "2025-11-22T10:44:04.999487Z",
+        "lastUpdatedAt": "2025-11-22T10:44:04.999487Z",
+        "snippet": "New chat",
+        "dominant_emotion": "neutral",
+        "messageCount": 0
+      },
+      "messages": [],
+      "emotionTimeline": {
+        "joy": [],
+        "sadness": [],
+        "anger": [],
+        "fear": [],
+        "surprise": [],
+        "stress": [],
+        "tension": [],
+        "disgust": [],
+        "anticipation": [],
+        "neutral": []
+      }
+    },
+    "d44e73d0": {
+      "metadata": {
+        "chatId": "d44e73d0",
+        "id": "d44e73d0",
+        "userId": "test-user",
+        "title": "I am so excited and...",
+        "createdAt": "2025-11-22T10:44:38.983652Z",
+        "lastUpdatedAt": "2025-11-22T10:44:41.460474Z",
+        "snippet": "I am so excited and happy!",
+        "dominant_emotion": "joy",
+        "messageCount": 1
+      },
+      "messages": [
+        {
+          "id": 1,
+          "speaker": "user",
+          "text": "I am so excited and happy!",
+          "ts": "2025-11-22T10:44:41.460474Z",
+          "probs": {
+            "joy": 0.7,
+            "sadness": 0.05,
+            "anger": 0.05,
+            "fear": 0.05,
+            "surprise": 0.05,
+            "stress": 0.05,
+            "tension": 0.05,
+            "disgust": 0.05,
+            "anticipation": 0.05,
+            "neutral": 0.05
+          },
+          "dominant": "joy",
+          "entropy": 0.6938948700388118,
+          "confidence": "low"
+        }
+      ],
+      "emotionTimeline": {
+        "joy": [
+          0.7
+        ],
+        "sadness": [
+          0.05
+        ],
+        "anger": [
+          0.05
+        ],
+        "fear": [
+          0.05
+        ],
+        "surprise": [
+          0.05
+        ],
+        "stress": [
+          0.05
+        ],
+        "tension": [
+          0.05
+        ],
+        "disgust": [
+          0.05
+        ],
+        "anticipation": [
+          0.05
+        ],
+        "neutral": [
+          0.05
+        ]
+      }
+    }
+  },
+  "user_chats": {
+    "testuser": [
+      "43051989",
+      "f75fd44a",
+      "a7f441e3",
+      "714de3d0"
+    ],
+    "test-user": [
+      "43a63181",
+      "d44e73d0"
+    ]
+  },
+  "emotion_cache": {
+    "a7f441e3": {
+      "chatId": "a7f441e3",
+      "id": "a7f441e3",
+      "dominant_emotion": "stress",
+      "scores": {
+        "joy": 0.0,
+        "sadness": 0.2,
+        "anger": 0.0,
+        "fear": 0.3,
+        "surprise": 0.0,
+        "stress": 0.4,
+        "tension": 0.1,
+        "disgust": 0.0,
+        "anticipation": 0.0,
+        "neutral": 0.0
+      },
+      "confidence": 0.44,
+      "summary_text": "The conversation shows stress, with occasional fear.",
+      "generatedAt": "2025-11-22T09:57:25.290744Z"
+    }
+  }
+}

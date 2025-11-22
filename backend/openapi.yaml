@@ -1,0 +1,505 @@
+openapi: 3.0.3
+info:
+  title: The Empathy Engine API
+  description: |
+    Complete emotion analysis API with chat history, user management, and emotion summarization.
+    
+    **Features:**
+    - Real-time emotion classification (10 emotions)
+    - Chat session management with full history
+    - Deterministic emotion summarization
+    - Pagination support for large datasets
+    - Backward compatible with legacy endpoints
+    
+    **Emotions Tracked:**
+    joy, sadness, anger, fear, surprise, stress, tension, disgust, anticipation, neutral
+  version: 2.0.0
+  contact:
+    name: The Empathy Engine Team
+    email: support@empathyengine.ai
+
+servers:
+  - url: http://localhost:8000
+    description: Local development server
+  - url: https://api.empathyengine.ai
+    description: Production server
+
+tags:
+  - name: Chat Management
+    description: Create, read, update, and delete chat sessions
+  - name: Emotion Analysis
+    description: Emotion classification and summarization
+  - name: Legacy
+    description: Backward compatible endpoints
+
+paths:
+  /api/chat:
+    post:
+      tags:
+        - Chat Management
+      summary: Create new chat session
+      description: Creates a new chat session for a user, optionally with an initial message
+      operationId: createChat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userId
+              properties:
+                userId:
+                  type: string
+                  example: "jdoe"
+                initialMessage:
+                  type: string
+                  example: "I need help with billing"
+      responses:
+        '200':
+          description: Chat created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateChatResponse'
+        '500':
+          description: Internal server error
+
+  /api/user/{userId}/chats:
+    get:
+      tags:
+        - Chat Management
+      summary: Get user chat history
+      description: Retrieves paginated list of chats for a specific user
+      operationId: getUserChats
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "jdoe"
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          description: Number of chats per page
+        - name: cursor
+          in: query
+          schema:
+            type: string
+          description: Pagination cursor for next page
+      responses:
+        '200':
+          description: Chat history retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatHistoryResponse'
+
+  /api/chat/{chatId}:
+    get:
+      tags:
+        - Chat Management
+      summary: Get chat by ID
+      description: Retrieves complete chat session with all messages
+      operationId: getChatById
+      parameters:
+        - name: chatId
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "abc123"
+      responses:
+        '200':
+          description: Chat retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatSession'
+        '404':
+          description: Chat not found
+    delete:
+      tags:
+        - Chat Management
+      summary: Delete chat
+      description: Deletes a chat session (requires user authorization)
+      operationId: deleteChat
+      parameters:
+        - name: chatId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: User ID for authorization
+      responses:
+        '200':
+          description: Chat deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "deleted"
+                  chatId:
+                    type: string
+        '404':
+          description: Chat not found or unauthorized
+
+  /api/chat/{chatId}/message:
+    post:
+      tags:
+        - Chat Management
+      summary: Add message to chat
+      description: Adds a new message to existing chat with automatic emotion analysis
+      operationId: addMessage
+      parameters:
+        - name: chatId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - speaker
+                - text
+              properties:
+                speaker:
+                  type: string
+                  enum: [user, assistant]
+                  example: "user"
+                text:
+                  type: string
+                  example: "This is really frustrating!"
+      responses:
+        '200':
+          description: Message added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  chatId:
+                    type: string
+                  messageId:
+                    type: integer
+                  emotion:
+                    type: string
+                  confidence:
+                    type: string
+        '404':
+          description: Chat not found
+
+  /api/chat/{chatId}/summarize-emotion:
+    post:
+      tags:
+        - Emotion Analysis
+      summary: Summarize chat emotions
+      description: |
+        Generates deterministic aggregated emotion summary for entire chat.
+        Returns dominant emotion, normalized scores, and optional text summary.
+      operationId: summarizeEmotion
+      parameters:
+        - name: chatId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                include_summary_text:
+                  type: boolean
+                  default: true
+                  description: Generate human-readable summary
+      responses:
+        '200':
+          description: Emotion summary generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmotionSummary'
+        '404':
+          description: Chat not found
+
+  /api/chat/{chatId}/title:
+    patch:
+      tags:
+        - Chat Management
+      summary: Update chat title
+      description: Updates the title/name of a chat session
+      operationId: updateChatTitle
+      parameters:
+        - name: chatId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+              properties:
+                title:
+                  type: string
+                  example: "Billing Issue - Resolved"
+      responses:
+        '200':
+          description: Title updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  chatId:
+                    type: string
+                  title:
+                    type: string
+        '404':
+          description: Chat not found
+
+  /:
+    get:
+      tags:
+        - Legacy
+      summary: Health check
+      operationId: healthCheck
+      responses:
+        '200':
+          description: Service is online
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "online"
+                  service:
+                    type: string
+                    example: "The Empathy Engine"
+
+  /analyze:
+    post:
+      tags:
+        - Legacy
+      summary: Analyze messages (Legacy)
+      description: Legacy endpoint for emotion analysis
+      operationId: analyze
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                session_id:
+                  type: string
+                messages:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Message'
+                smoothing_window:
+                  type: integer
+                  default: 3
+      responses:
+        '200':
+          description: Analysis complete
+
+components:
+  schemas:
+    EmotionType:
+      type: string
+      enum:
+        - joy
+        - sadness
+        - anger
+        - fear
+        - surprise
+        - stress
+        - tension
+        - disgust
+        - anticipation
+        - neutral
+
+    Message:
+      type: object
+      required:
+        - id
+        - speaker
+        - text
+        - ts
+      properties:
+        id:
+          type: integer
+          example: 1
+        speaker:
+          type: string
+          enum: [user, assistant]
+        text:
+          type: string
+        ts:
+          type: string
+          format: date-time
+          example: "2025-11-22T10:00:00Z"
+
+    CreateChatResponse:
+      type: object
+      properties:
+        chatId:
+          type: string
+          example: "abc123"
+        id:
+          type: string
+          description: Alias for chatId (backward compatibility)
+          example: "abc123"
+        userId:
+          type: string
+          example: "jdoe"
+        createdAt:
+          type: string
+          format: date-time
+        message:
+          type: string
+          example: "Chat created successfully"
+
+    ChatHistoryItem:
+      type: object
+      properties:
+        chatId:
+          type: string
+        id:
+          type: string
+        title:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        lastUpdatedAt:
+          type: string
+          format: date-time
+        snippet:
+          type: string
+        dominant_emotion:
+          $ref: '#/components/schemas/EmotionType'
+        messageCount:
+          type: integer
+
+    ChatHistoryResponse:
+      type: object
+      properties:
+        userId:
+          type: string
+        chats:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatHistoryItem'
+        nextCursor:
+          type: string
+          nullable: true
+        total:
+          type: integer
+
+    EmotionSummary:
+      type: object
+      properties:
+        chatId:
+          type: string
+        id:
+          type: string
+        dominant_emotion:
+          $ref: '#/components/schemas/EmotionType'
+        scores:
+          type: object
+          additionalProperties:
+            type: number
+            minimum: 0
+            maximum: 1
+          example:
+            joy: 0.01
+            sadness: 0.21
+            anger: 0.62
+            fear: 0.03
+            surprise: 0.05
+            stress: 0.02
+            tension: 0.03
+            disgust: 0.01
+            anticipation: 0.01
+            neutral: 0.01
+        confidence:
+          type: number
+          minimum: 0
+          maximum: 1
+          example: 0.84
+        summary_text:
+          type: string
+          nullable: true
+          example: "The conversation is dominated by anger and frustration, with occasional sadness."
+        generatedAt:
+          type: string
+          format: date-time
+
+    ChatSession:
+      type: object
+      properties:
+        metadata:
+          type: object
+          properties:
+            chatId:
+              type: string
+            id:
+              type: string
+            userId:
+              type: string
+            title:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            lastUpdatedAt:
+              type: string
+              format: date-time
+            snippet:
+              type: string
+            dominant_emotion:
+              $ref: '#/components/schemas/EmotionType'
+            messageCount:
+              type: integer
+        messages:
+          type: array
+          items:
+            type: object
+        emotionTimeline:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: number
